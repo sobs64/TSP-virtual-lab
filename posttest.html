@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Posttest | TSP Virtual Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .buttons button {
+      background-color: white;
+      color: #0077b6;
+      border: none;
+      font-weight: bold;
+      padding: 6px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f0f0f0;
+      height: 100vh;
+      padding-top: 1rem;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background: #0077b6;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    h2 {
+      color: #0077b6;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+      border-left: 4px solid #28a745;
+      padding-left: 8px;
+    }
+
+    .correct::before {
+      content: "✔️ ";
+    }
+
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-left: 4px solid #dc3545;
+      padding-left: 8px;
+    }
+
+    .incorrect::before {
+      content: "❌ ";
+    }
+
+    .submit-btn {
+      padding: 10px 20px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .score {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #0077b6;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">TSP Virtual Lab</div>
+    <div class="buttons">
+      <button class="rate-btn">Rate Me</button>
+      <button class="bug-btn">Report a Bug</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="index.html">Aim</a></li>
+        <li><a href="theory.html">Theory</a></li>
+        <li><a href="procedure.html">Procedure</a></li>
+        <li><a href="pretest.html">Pretest</a></li>
+        <li><a href="demo.html">Demo</a></li>
+        <li class="active"><a href="posttest.html">Posttest</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="contributors.html">Contributors</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </aside>
+
+    <div class="main-content">
+      <h2>Traveling Salesman Problem Posttest</h2>
+
+      <form id="posttestForm">
+        <div class="question">
+          <p>1. What is the time complexity of solving TSP using dynamic programming (Held-Karp Algorithm)?</p>
+          <label class="option"><input type="radio" name="q1" value="a" /> O(n!)</label>
+          <label class="option"><input type="radio" name="q1" value="b" /> O(n² * 2ⁿ)</label>
+          <label class="option"><input type="radio" name="q1" value="c" /> O(n³)</label>
+          <label class="option"><input type="radio" name="q1" value="d" /> O(2ⁿ * log n)</label>
+        </div>
+
+        <div class="question">
+          <p>2. Which of the following is NOT a valid approximation technique for TSP?</p>
+          <label class="option"><input type="radio" name="q2" value="a" /> Christofides Algorithm</label>
+          <label class="option"><input type="radio" name="q2" value="b" /> Nearest Neighbor</label>
+          <label class="option"><input type="radio" name="q2" value="c" /> Bellman-Ford Algorithm</label>
+          <label class="option"><input type="radio" name="q2" value="d" /> Simulated Annealing</label>
+        </div>
+
+        <div class="question">
+          <p>3. The TSP is considered NP-hard because:</p>
+          <label class="option"><input type="radio" name="q3" value="a" /> It has a greedy solution</label>
+          <label class="option"><input type="radio" name="q3" value="b" /> It can be solved in logarithmic time</label>
+          <label class="option"><input type="radio" name="q3" value="c" /> No polynomial-time algorithm is known for all cases</label>
+          <label class="option"><input type="radio" name="q3" value="d" /> It cannot be verified in polynomial time</label>
+        </div>
+
+        <div class="question">
+          <p>4. What is the approximation ratio of Christofides' algorithm for symmetric TSP?</p>
+          <label class="option"><input type="radio" name="q4" value="a" /> 2</label>
+          <label class="option"><input type="radio" name="q4" value="b" /> 1.5</label>
+          <label class="option"><input type="radio" name="q4" value="c" /> 1.2</label>
+          <label class="option"><input type="radio" name="q4" value="d" /> 3</label>
+        </div>
+
+        <div class="question">
+          <p>5. Which problem does TSP reduce to when distances are not symmetric?</p>
+          <label class="option"><input type="radio" name="q5" value="a" /> Hamiltonian Path Problem</label>
+          <label class="option"><input type="radio" name="q5" value="b" /> Vehicle Routing Problem</label>
+          <label class="option"><input type="radio" name="q5" value="c" /> Asymmetric TSP</label>
+          <label class="option"><input type="radio" name="q5" value="d" /> Graph Coloring Problem</label>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="submitPosttest()">Submit Quiz</button>
+        <div id="score" class="score"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const correctAnswers = {
+      q1: "b",
+      q2: "c",
+      q3: "c",
+      q4: "b",
+      q5: "c"
+    };
+
+    function submitPosttest() {
+      let score = 0;
+      const total = Object.keys(correctAnswers).length;
+
+      for (let q in correctAnswers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        const options = document.querySelectorAll(`input[name="${q}"]`);
+
+        options.forEach(opt => {
+          const label = opt.parentElement;
+          label.classList.remove("correct", "incorrect"); // Reset styles
+
+          if (opt.value === correctAnswers[q]) {
+            label.classList.add("correct");
+          } else if (selected && opt.checked) {
+            label.classList.add("incorrect");
+          }
+        });
+
+        if (selected && selected.value === correctAnswers[q]) {
+          score++;
+        }
+      }
+
+      document.getElementById("score").textContent = `You scored ${score} out of ${total}`;
+    }
+  </script>
+</body>
+</html>

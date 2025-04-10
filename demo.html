@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demo | TSP Virtual Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .buttons button {
+      background-color: white;
+      color: #0077b6;
+      border: none;
+      font-weight: bold;
+      padding: 6px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f0f0f0;
+      height: 150vh;
+      padding-top: 1rem;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background: #0077b6;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    canvas {
+      border: 1px solid black;
+      margin-top: 20px;
+    }
+
+    textarea {
+      width: 300px;
+      height: 150px;
+      margin-top: 10px;
+    }
+
+    .mode-buttons {
+      margin-top: 10px;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      padding: 6px 12px;
+      font-weight: bold;
+      border: none;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    #matrixInput {
+      display: none;
+    }
+
+    /* Accordion styles */
+    .accordion-container {
+      margin: 20px auto;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .accordion {
+      background-color: #fff;
+      color: #333;
+      cursor: pointer;
+      padding: 14px 20px;
+      width: 100%;
+      border: 2px solid black;
+      border-radius: 20px;
+      text-align: center;
+      outline: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .accordion:hover {
+      background-color: #f9f9f9;
+    }
+
+    .panel {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      text-align: left;
+    }
+
+    .panel ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .panel li {
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">TSP Virtual Lab</div>
+    <div class="buttons">
+      <button class="rate-btn">Rate Me</button>
+      <button class="bug-btn">Report a Bug</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="index.html">Aim</a></li>
+        <li><a href="theory.html">Theory</a></li>
+        <li><a href="procedure.html">Procedure</a></li>
+        <li><a href="pretest.html">Pretest</a></li>
+        <li class="active">Demo</li>
+        <li><a href="posttest.html">Posttest</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="contributors.html">Contributors</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </aside>
+
+    <div class="main-content">
+      <h1>TSP Nearest Neighbor Visualizer</h1>
+
+      <!-- Instruction Dropdown -->
+      <div class="accordion-container">
+        <button class="accordion">Instructions ▼</button>
+        <div class="panel">
+          <ul>
+            <li>Enter the number of cities in the input field.</li>
+            <li>Click <strong>Next</strong> to generate city nodes and distance matrix.</li>
+            <li>Use <strong>Auto Generate</strong> to auto-calculate distances, or</li>
+            <li>Select <strong>Manual Distance Input</strong> to provide a custom matrix.</li>
+            <li>In manual mode, enter a square matrix of distances (comma-separated rows).</li>
+            <li>Click <strong>Start Animation</strong> to visualize the TSP path.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <label>Enter Number of Cities:</label>
+        <input type="number" id="cityCount" min="2">
+        <button onclick="startTSP()">Next</button>
+        <button onclick="startAnimation()">Start Animation</button>
+      </div>
+
+      <div class="mode-buttons">
+        <button onclick="setMode('auto')">Auto Generate</button>
+        <button onclick="setMode('manual')">Manual Distance Input</button>
+      </div>
+
+      <div id="matrixInput">
+        <p>Enter Distance Matrix (comma-separated rows):</p>
+        <textarea id="matrixText"></textarea>
+      </div>
+
+      <canvas id="tspCanvas" width="500" height="500"></canvas>
+      <p id="status">Current Status: Waiting...</p>
+    </div>
+  </div>
+
+  <script>
+    // Accordion JS
+    document.querySelectorAll(".accordion").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+          this.innerHTML = "Instructions ▼";
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+          this.innerHTML = "Instructions ▲";
+        }
+      });
+    });
+
+    const canvas = document.getElementById("tspCanvas");
+    const ctx = canvas.getContext("2d");
+    const statusDiv = document.getElementById("status");
+    let cityPositions = [], distMatrix = [], tspPath = [], tspCost = 0;
+    let mode = "auto";
+
+    function setMode(selectedMode) {
+      mode = selectedMode;
+      document.getElementById("matrixInput").style.display = (mode === "manual") ? "block" : "none";
+    }
+
+    function drawCitiesWithLabels() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = 2;
+      ctx.font = "bold 16px Arial";
+      ctx.textAlign = "center";
+
+      for (let i = 0; i < cityPositions.length; i++) {
+        for (let j = i + 1; j < cityPositions.length; j++) {
+          const from = cityPositions[i], to = cityPositions[j];
+          ctx.strokeStyle = "#aaa";
+          ctx.beginPath();
+          ctx.moveTo(from.x, from.y);
+          ctx.lineTo(to.x, to.y);
+          ctx.stroke();
+
+          const midX = (from.x + to.x) / 2, midY = (from.y + to.y) / 2;
+          ctx.fillStyle = "black";
+          ctx.fillText(distMatrix[i][j], midX, midY - 5);
+        }
+      }
+
+      for (let i = 0; i < cityPositions.length; i++) {
+        const { x, y } = cityPositions[i];
+        ctx.strokeStyle = "red";
+        ctx.fillStyle = "yellow";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(x, y, 18, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "black";
+        ctx.fillText(String.fromCharCode(65 + i), x, y + 5);
+      }
+    }
+
+    function parseMatrix(input, n) {
+      const rows = input.trim().split("\n");
+      if (rows.length !== n) throw "Invalid number of rows";
+      const matrix = [];
+      for (let row of rows) {
+        const vals = row.trim().split(",").map(Number);
+        if (vals.length !== n) throw "Invalid number of columns";
+        matrix.push(vals);
+      }
+      return matrix;
+    }
+
+    function startTSP() {
+      const n = parseInt(document.getElementById("cityCount").value);
+      if (!n || n < 2) return alert("Enter valid number of cities");
+
+      cityPositions = [];
+      const centerX = canvas.width / 2, centerY = canvas.height / 2, radius = 150;
+      for (let i = 0; i < n; i++) {
+        const angle = (2 * Math.PI / n) * i;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        cityPositions.push({ x, y });
+      }
+
+      if (mode === "auto") {
+        distMatrix = Array.from({ length: n }, () => Array(n).fill(0));
+        for (let i = 0; i < n; i++) {
+          for (let j = 0; j < n; j++) {
+            const dx = cityPositions[i].x - cityPositions[j].x;
+            const dy = cityPositions[i].y - cityPositions[j].y;
+            distMatrix[i][j] = Math.round(Math.sqrt(dx * dx + dy * dy));
+          }
+        }
+      } else {
+        try {
+          const input = document.getElementById("matrixText").value;
+          distMatrix = parseMatrix(input, n);
+        } catch (e) {
+          return alert("Invalid matrix input: " + e);
+        }
+      }
+
+      const VISITED_ALL = (1 << n) - 1;
+      const dp = Array.from({ length: n }, () => Array(1 << n).fill(-1));
+      const parent = Array.from({ length: n }, () => Array(1 << n).fill(-1));
+
+      function tsp(mask, pos) {
+        if (mask === VISITED_ALL) return distMatrix[pos][0];
+        if (dp[pos][mask] !== -1) return dp[pos][mask];
+        let minCost = Infinity;
+        for (let city = 0; city < n; city++) {
+          if ((mask & (1 << city)) === 0) {
+            const newCost = distMatrix[pos][city] + tsp(mask | (1 << city), city);
+            if (newCost < minCost) {
+              minCost = newCost;
+              parent[pos][mask] = city;
+            }
+          }
+        }
+        dp[pos][mask] = minCost;
+        return minCost;
+      }
+
+      tspCost = tsp(1, 0);
+      tspPath = [0];
+      let mask = 1, pos = 0;
+      while (true) {
+        const next = parent[pos][mask];
+        if (next === -1) break;
+        tspPath.push(next);
+        mask |= (1 << next);
+        pos = next;
+      }
+      tspPath.push(0);
+
+      drawCitiesWithLabels();
+      statusDiv.textContent = "Path calculated. Click Start Animation!";
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function startAnimation() {
+      if (!tspPath.length) return alert("Please calculate the TSP path first.");
+
+      drawCitiesWithLabels();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "blue";
+
+      for (let i = 0; i < tspPath.length - 1; i++) {
+        const from = cityPositions[tspPath[i]];
+        const to = cityPositions[tspPath[i + 1]];
+        ctx.beginPath();
+        ctx.moveTo(from.x, from.y);
+        ctx.lineTo(to.x, to.y);
+        ctx.stroke();
+
+        statusDiv.textContent = `Step ${i + 1}: ${String.fromCharCode(65 + tspPath[i])} → ${String.fromCharCode(65 + tspPath[i + 1])}`;
+        await sleep(1000);
+      }
+
+      const labelPath = tspPath.map(i => String.fromCharCode(65 + i)).join(" → ");
+      statusDiv.textContent = `Path: ${labelPath} | Total Cost: ${tspCost}`;
+    }
+  </script>
+</body>
+</html>

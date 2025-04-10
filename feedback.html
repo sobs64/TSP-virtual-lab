@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback | TSP Virtual Lab</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .buttons button {
+      background-color: white;
+      color: #0077b6;
+      border: none;
+      font-weight: bold;
+      padding: 6px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f0f0f0;
+      height: 100vh;
+      padding-top: 1rem;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background: #0077b6;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    h2 {
+      color: #0077b6;
+    }
+
+    form {
+      max-width: 600px;
+      margin-top: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button[type="submit"] {
+      background-color: #0077b6;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #005f8a;
+    }
+
+    .star-rating {
+      direction: rtl;
+      font-size: 1.8rem;
+      unicode-bidi: bidi-override;
+      margin-bottom: 1rem;
+    }
+
+    .star-rating input {
+      display: none;
+    }
+
+    .star-rating label {
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: gold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">TSP Virtual Lab</div>
+    <div class="buttons">
+      <button class="rate-btn">Rate Me</button>
+      <button class="bug-btn">Report a Bug</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="index.html">Aim</a></li>
+        <li><a href="theory.html">Theory</a></li>
+        <li><a href="procedure.html">Procedure</a></li>
+        <li><a href="pretest.html">Pretest</a></li>
+        <li><a href="demo.html">Demo</a></li>
+        <li><a href="posttest.html">Posttest</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="contributors.html">Contributors</a></li>
+        <li class="active"><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </aside>
+
+    <div class="main-content">
+      <h2>Feedback</h2>
+
+      <!-- Replace this with your actual Google Form action URL -->
+      <form id="feedbackForm" action="https://docs.google.com/forms/d/e/FORM_ID/formResponse" method="POST" target="_blank" onsubmit="saveToLocalStorage()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="entry.532616076" placeholder="Your name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="entry.0987654321" placeholder="Your email" required>
+
+        <label>Rate Your Experience:</label>
+        <div class="star-rating">
+          <input type="radio" id="5-stars" name="entry.5555555555" value="5" required /><label for="5-stars">★</label>
+          <input type="radio" id="4-stars" name="entry.5555555555" value="4" /><label for="4-stars">★</label>
+          <input type="radio" id="3-stars" name="entry.5555555555" value="3" /><label for="3-stars">★</label>
+          <input type="radio" id="2-stars" name="entry.5555555555" value="2" /><label for="2-stars">★</label>
+          <input type="radio" id="1-star" name="entry.5555555555" value="1" /><label for="1-star">★</label>
+        </div>
+
+        <label for="experience">Select an Option:</label>
+        <select id="experience" name="entry.2222222222" required>
+          <option value="">-- Select an option --</option>
+          <option value="Excellent">Excellent</option>
+          <option value="Good">Good</option>
+          <option value="Average">Average</option>
+          <option value="Poor">Poor</option>
+        </select>
+
+        <label for="comments">Additional Comments:</label>
+        <textarea id="comments" name="entry.3333333333" placeholder="Your feedback..."></textarea>
+
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function saveToLocalStorage() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const experience = document.getElementById('experience').value;
+      const comments = document.getElementById('comments').value;
+      const rating = document.querySelector('input[name="entry.5555555555"]:checked')?.value;
+
+      const feedback = {
+        name,
+        email,
+        experience,
+        rating,
+        comments,
+        timestamp: new Date().toISOString()
+      };
+
+      let existing = JSON.parse(localStorage.getItem('tspFeedback')) || [];
+      existing.push(feedback);
+      localStorage.setItem('tspFeedback', JSON.stringify(existing));
+
+      // Allow Google Form submission to continue
+    }
+  </script>
+</body>
+</html>

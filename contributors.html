@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contributors | TSP Virtual Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .buttons button {
+      background-color: white;
+      color: #0077b6;
+      border: none;
+      font-weight: bold;
+      padding: 6px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f0f0f0;
+      height: 100vh;
+      padding-top: 1rem;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background: #0077b6;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    h2 {
+      color: #0077b6;
+    }
+
+    h3 {
+      color: #023e8a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f8f8f8;
+    }
+
+    a {
+      color: #0077b6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">TSP Virtual Lab</div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="index.html">Aim</a></li>
+        <li><a href="theory.html">Theory</a></li>
+        <li><a href="procedure.html">Procedure</a></li>
+        <li><a href="pretest.html">Pretest</a></li>
+        <li><a href="demo.html">Demo</a></li>
+        <li><a href="posttest.html">Posttest</a></li>
+        <li><a href="references.html">References</a></li>
+        <li class="active"><a href="contributors.html">Contributors</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </aside>
+
+    <div class="main-content">
+      <h2>Contributors</h2>
+
+      <h3>Subject Matter Experts</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>SNo.</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Institute</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Prof. Navaneetha M</td>
+            <td><a href="mailto:navaneetha.m@cmrit.ac.in">navaneetha.m@cmrit.ac.in</a></td>
+            <td>Department of Computer Science, CMR Institute of Technology</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Developers</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>SNo.</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Institute</th>
+            <th>USN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Sohan B</td>
+            <td><a href="mailto:sob23cs@cmrit.ac.in">sob23cs@cmrit.ac.in</a></td>
+            <td>CMR Institute of Technology</td>
+            <td>1CR23CS190</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</body>
+</html>

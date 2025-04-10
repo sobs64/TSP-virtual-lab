@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aim | TSP Virtual Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .buttons button {
+      background-color: white;
+      color: #0077b6;
+      border: none;
+      font-weight: bold;
+      padding: 6px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f0f0f0;
+      height: 100vh;
+      padding-top: 1rem;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background: #0077b6;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    canvas {
+      border: 1px solid black;
+      margin-top: 20px;
+    }
+
+    textarea {
+      width: 300px;
+      height: 150px;
+      margin-top: 10px;
+    }
+
+    .mode-buttons {
+      margin-top: 10px;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      padding: 6px 12px;
+      font-weight: bold;
+      border: none;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    #matrixInput {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">TSP Virtual Lab</div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li class="active">Aim</li>
+        <li><a href="theory.html">Theory</a></li>
+        <li><a href="procedure.html">Procedure</a></li>
+        <li><a href="pretest.html">Pretest</a></li>
+        <li><a href="demo.html">Demo</a></li>
+        <li><a href="posttest.html">Posttest</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="contributors.html">Contributors</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </aside>
+
+
+    <main class="content">
+        <div style="padding: 40px; font-family: Arial, sans-serif;">
+            <h2 style="color: #3399cc; text-align: center; margin-bottom: 40px;">Traveling Salesman Problem</h2>
+          
+            <p style="font-size: 20px; line-height: 1.6;">
+              This experiment demonstrates the Traveling Salesman Problem (TSP), where the goal is to find the shortest possible route 
+              that visits each city exactly once and returns to the starting point. This interactive module provides a platform for visualizing 
+              and solving TSP using various algorithms, helping learners understand optimization, pathfinding, and combinatorics.
+            </p>
+          
+            <h3 style="color: #3399cc; margin-top: 30px;">Objectives:</h3>
+            <ul style="font-size: 20px; line-height: 1.8;">
+              <li><strong>Interactive Route Visualization:</strong> Allow users to see the cities, distances, and optimal paths dynamically on a graph.</li>
+              <li><strong>Algorithm Comparison:</strong> Let users choose between algorithms like brute force, greedy, or genetic to see their impact on solution quality and time.</li>
+              <li><strong>Understand Optimization:</strong> Highlight how algorithmic optimizations help in reducing computation time and improving route accuracy.</li>
+            </ul>
+          </div>
+</body>
+</html>

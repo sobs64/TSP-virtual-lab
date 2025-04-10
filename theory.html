@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Theory | TSP Virtual Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .buttons button {
+      background-color: white;
+      color: #0077b6;
+      border: none;
+      font-weight: bold;
+      padding: 6px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f0f0f0;
+      height: 220vh;
+      padding-top: 1rem;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background: #0077b6;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    canvas {
+      border: 1px solid black;
+      margin-top: 20px;
+    }
+
+    textarea {
+      width: 300px;
+      height: 150px;
+      margin-top: 10px;
+    }
+
+    .mode-buttons {
+      margin-top: 10px;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      padding: 6px 12px;
+      font-weight: bold;
+      border: none;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    #matrixInput {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">TSP Virtual Lab</div>
+    <div class="buttons">
+      <button class="rate-btn">Rate Me</button>
+      <button class="bug-btn">Report a Bug</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="index.html">Aim</a></li>
+        <li class="active">Theory</li>
+        <li><a href="procedure.html">Procedure</a></li>
+        <li><a href="pretest.html">Pretest</a></li>
+        <li><a href="demo.html">Demo</a></li>
+        <li><a href="posttest.html">Posttest</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="contributors.html">Contributors</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <h2>Traveling Salesman Problem</h2>
+
+      <h3>Introduction to TSP</h3>
+      <p>
+        The <strong>Traveling Salesman Problem (TSP)</strong> is a classic optimization problem in computer science and operations research. It involves a salesman who must visit a list of cities, each exactly once, and return to the starting city — all while minimizing the total travel distance or cost.
+      </p>
+      <p>
+        Imagine a delivery driver trying to plan the most efficient route that ensures all packages are delivered without retracing steps. Solving TSP means determining the shortest path that covers all required destinations and loops back to the start.
+      </p>
+
+      <h3>Real-World Applications</h3>
+      <ul>
+        <li>Logistics and delivery services</li>
+        <li>Electronic circuit design</li>
+        <li>Genomic sequencing</li>
+        <li>Astronomical observations</li>
+      </ul>
+
+      <h3>Problem Description</h3>
+      <p><strong>Given:</strong></p>
+      <ul>
+        <li>A set of <strong>N</strong> cities</li>
+        <li>A distance matrix <code>D[i][j]</code> representing cost between city <code>i</code> and <code>j</code></li>
+      </ul>
+      <p><strong>Goal:</strong> Find the shortest route visiting all cities exactly once and returning to the start.</p>
+
+      <h3>TSP as a Graph Problem</h3>
+      <p>
+        Represented as a <strong>complete weighted graph</strong>, cities are nodes and distances are edge weights. The aim is to find the minimum-cost <strong>Hamiltonian cycle</strong>.
+      </p>
+
+      <h3>Mathematical Formulation</h3>
+      <p>
+        Let <code>d(i, j)</code> be the distance between cities <code>i</code> and <code>j</code>, and <code>π</code> be a permutation of cities. Then:
+      </p>
+      <p><strong>Minimize</strong></p>
+      <p>
+        <code>Σ d(π_k, π_{k+1})</code> where <code>π_{N+1} = π_1</code>
+      </p>
+
+      <h3>Solution Approaches</h3>
+      <ul>
+        <li><strong>Brute Force:</strong> Try all permutations (O(n!))</li>
+        <li><strong>Dynamic Programming:</strong> Held-Karp algorithm (O(n²·2ⁿ))</li>
+        <li><strong>Greedy:</strong> Nearest neighbor</li>
+        <li><strong>Heuristics:</strong> Genetic algorithms, Simulated Annealing</li>
+      </ul>
+
+      <h3>Step-by-Step Explanation</h3>
+      <ol>
+        <li>Define the cities and distances</li>
+        <li>Select a solving approach</li>
+        <li>Generate or approximate all valid paths</li>
+        <li>Track and update the best cost</li>
+        <li>Return optimal route and cost</li>
+      </ol>
+
+      <h3>Visual Interpretation</h3>
+      <p>
+        TSP paths can be drawn as loops connecting all cities. Shorter loops represent more optimal solutions.
+      </p>
+
+      <h3>Pseudocode (Brute Force)</h3>
+      <pre><code>def tsp_brute_force(cities, distance_matrix):
+    min_cost = ∞
+    best_path = None
+    for perm in all_permutations(cities):
+        cost = 0
+        for i in range(len(perm)):
+            cost += distance_matrix[perm[i]][perm[(i+1) % len(perm)]]
+        if cost < min_cost:
+            min_cost = cost
+            best_path = perm
+    return best_path, min_cost</code></pre>
+
+      <h3>Why TSP is Important</h3>
+      <p>
+        It teaches essential problem-solving and optimization techniques used in multiple domains.
+      </p>
+
+      <h3>Complexity and Limitations</h3>
+      <p>
+        TSP is <strong>NP-hard</strong>. For large datasets, approximation and heuristics are necessary.
+      </p>
+
+      <h3>Conclusion</h3>
+      <p>
+        TSP is foundational in combinatorial optimization, offering insight into graph theory, algorithm design, and computational efficiency.
+      </p>
+    </main>
+  </div>
+</body>
+</html>
